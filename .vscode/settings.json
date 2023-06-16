@@ -1,0 +1,18 @@
+{
+    "files.associations": {
+        "bit": "c",
+        "compare": "c",
+        "cstddef": "c",
+        "fstream": "c",
+        "iterator": "c",
+        "limits": "c",
+        "memory": "c",
+        "system_error": "c",
+        "type_traits": "c",
+        "xiosbase": "c",
+        "xlocale": "c",
+        "xutility": "c",
+        "stdbool.h": "c",
+        "stdlib.h": "c"
+    }
+}
