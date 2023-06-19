@@ -31,17 +31,21 @@ int main(){
     char nomeTime2[25];
     int valoresTime1[3];
     int valoresTime2[3];
+    char temp[25];
 
     fgets(nomeTime1, 25, stdin);
     for (int i = 0; i < 3; i++)
     {
-        scanf("%d", &valoresTime1[i]);
+        fgets(temp, 25, stdin);
+        valoresTime1[i] = atoi(temp);
+
     }
-    fflush(stdin);
+    
     fgets(nomeTime2, 25, stdin);
     for (int i = 0; i < 3; i++)
     {
-        scanf("%d", &valoresTime2[i]);
+        fgets(temp, 25, stdin);
+        valoresTime2[i] = atoi(temp);
     }
 
     formataMinusculo(nomeTime1);

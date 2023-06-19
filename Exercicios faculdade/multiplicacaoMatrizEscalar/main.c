@@ -44,7 +44,7 @@ void alocaMatrizQuadrada(int*** matriz, int n){
     *matriz = malloc(sizeof(int*) * n);
     for (int i = 0; i < n; i++)
     {
-        (*matriz)[i] = malloc(sizeof(int) * n);
+        (*matriz)[i] = (int*)malloc(sizeof(int) * n);
     }
 }
 
@@ -54,15 +54,18 @@ int main(){
     int tam;
     char *texto;
     int num;
+    char numTemp[20];
     texto = calloc(25,sizeof(char));
 
     scanf("%d", &tam);
     alocaMatrizQuadrada(&matriz, tam);
     lerMatriz(matriz, tam);
 
-   printf("Antes: \n");
-   exibirMatriz(matriz, tam);
-   fflush(stdin);
+    // Lendo o valor e convertendo em numero (Porque o the huxley não aceita fflush(stdin))
+    fgets(numTemp, 25, stdin);
+    num = atoi(numTemp);
+
+
    fgets(texto, 25, stdin);
    while (texto[0] != '*')
    {

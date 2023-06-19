@@ -19,7 +19,7 @@ Status verificaTriglicerideos(int value){
     {
         return DESEJAVEL;
     }
-    else if (value >= 150 && value < 200)
+    else if (value >= 150 && value <= 200)
     {
         return LIMITROFE;
     }

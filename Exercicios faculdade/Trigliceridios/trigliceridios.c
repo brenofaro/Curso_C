@@ -19,7 +19,7 @@ Status verificaTriglicerideos(int value){
     {
         return DESEJAVEL;
     }
-    else if (value >= 150 && value < 200)
+    else if (value >= 150 && value <= 200)
     {
         return LIMITROFE;
     }
@@ -82,13 +82,13 @@ int main(){
     switch (resultadoCol)
     {
     case DESEJAVEL:
-        printf("Colesterol total %.1f mg/dl: (DESEJAVEL)", colesterol);
+        printf("Colesterol total %.1f mg/dl (DESEJAVEL)", colesterol);
         break;
     case LIMITROFE:
-        printf("Colesterol total %.1f mg/dl: (LIMITROFE)", colesterol);
+        printf("Colesterol total %.1f mg/dl (LIMITROFE)", colesterol);
         break;
     default:
-        printf("Colesterol total %.1f mg/dl: (ALTO)", colesterol);
+        printf("Colesterol total %.1f mg/dl (ALTO)", colesterol);
         break;
     }
     return 0;
