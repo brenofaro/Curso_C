@@ -18,6 +18,7 @@ void imprime_encadeada(Pessoa *ponteiroEncadeado);
 void inserir_inicio(Pessoa **ponteiroEncadeado, char *nome, int rg);
 void inserir_final(Pessoa **ponteiroEncadeado, char *nome, int rg);
 void inserir_na_posicao(Pessoa **ponteiroEncadeado, char *nome, int rg, int posicao);
+void remover_inicio(Pessoa **ponteiroEncadeado);
 
 int main()
 {
@@ -148,12 +149,12 @@ int main()
                 printf("A lista nao possui elementos! \n");
                 hr();
             }
+            
             else
             {
-                printf("Valor removido: %s\n", ponteiroEncadeado->nome);
-                
-                ponteiroEncadeado = ponteiroEncadeado->proximo;
+                remover_inicio(&ponteiroEncadeado);
             }
+            
             
             break;
 
@@ -330,4 +331,22 @@ void inserir_na_posicao(Pessoa **ponteiroEncadeado, char *nome, int rg, int posi
     tempPessoa->proximo = ponteiroAuxiliar->proximo;
     // Ajusta o ponteiro do valor anterior para apontar para o novo valor
     ponteiroAuxiliar->proximo = tempPessoa;
+}
+
+void remover_inicio(Pessoa **ponteiroEncadeado)
+{
+    if ((*ponteiroEncadeado)->proximo == NULL)
+            {
+                (*ponteiroEncadeado)->nome[0] = '\0';
+                (*ponteiroEncadeado)->rg = 0;
+                (*ponteiroEncadeado)->proximo = NULL;
+                return;
+            }
+    
+    // Cria um ponteiro auxiliar para percorrer a lista
+    Pessoa *ponteiroAuxiliar = *ponteiroEncadeado;
+    // Ajusta o ponteiro do inicio da lista para o proximo valor
+    *ponteiroEncadeado = ponteiroAuxiliar->proximo;
+    // Libera o valor removido
+    free(ponteiroAuxiliar);
 }
