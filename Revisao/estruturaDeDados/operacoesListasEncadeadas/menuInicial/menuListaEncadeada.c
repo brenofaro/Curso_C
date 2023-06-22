@@ -21,6 +21,7 @@ void inserir_na_posicao(Pessoa **ponteiroEncadeado, char *nome, int rg, int posi
 void remover_inicio(Pessoa **ponteiroEncadeado);
 void remover_final(Pessoa **ponteiroEncadeado);
 void remover_na_posicao(Pessoa **ponteiroEncadeado, int posicao);
+void busca_encadeada(Pessoa **ponteiroEncadeado, int rg);
 
 int main()
 {
@@ -172,6 +173,50 @@ int main()
                 remover_final(&ponteiroEncadeado);
             }
 
+            break;
+
+        case 6:
+            printf("Removendo da posicao N da lista...\n");
+            hr();
+            if (tamanhoLista(ponteiroEncadeado) == 0)
+            {
+                printf("A lista nao possui elementos! \n");
+                hr();
+            }
+            else
+            {
+                printf("Digite a posicao N: \n");
+                fgets(tempInput, 50, stdin);
+                int posicao = atoi(tempInput);
+
+                if (posicao == 0)
+                {
+                    remover_inicio(&ponteiroEncadeado);
+                }
+                else if (posicao == tamanhoLista(ponteiroEncadeado) - 1)
+                {
+                    remover_final(&ponteiroEncadeado);
+                }
+                else
+                {
+                    remover_na_posicao(&ponteiroEncadeado, posicao);
+                }
+            }
+        case 7:
+            printf("Buscando na lista...\n");
+            hr();
+            if (tamanhoLista(ponteiroEncadeado) == 0)
+            {
+                printf("A lista nao possui elementos! \n");
+                hr();
+            }
+            else
+            {
+                printf("Digite o rg da pessoa: \n");
+                fgets(tempInput, 50, stdin);
+                rg = atoi(tempInput);
+                busca_encadeada(&ponteiroEncadeado, rg);
+            }
             break;
 
         case 8:
@@ -373,7 +418,7 @@ void remover_final(Pessoa **ponteiroEncadeado)
 
     ponteiroAux = *ponteiroEncadeado;
 
-    // Percorre a lista ate o penultimo elemento 
+    // Percorre a lista ate o penultimo elemento
     while (cont < tamanhoLista(*ponteiroEncadeado) - 2)
     {
         ponteiroAux = ponteiroAux->proximo;
@@ -384,4 +429,49 @@ void remover_final(Pessoa **ponteiroEncadeado)
     ponteiroAux->proximo = NULL;
 
     printf("Pessoa removida com sucesso!\n");
+}
+
+void remover_na_posicao(Pessoa **ponteiroEncadeado, int posicao)
+{
+
+    if (tamanhoLista(*ponteiroEncadeado) < posicao)
+    {
+        printf("Posicao invalida! \n");
+        return;
+    }
+
+    Pessoa *ponteiroAuxiliar = (Pessoa *)malloc(sizeof(Pessoa));
+    int cont = 0;
+
+    ponteiroAuxiliar = *ponteiroEncadeado;
+
+    Pessoa *aux2;
+    while (ponteiroAuxiliar->proximo != NULL && cont < posicao)
+    {
+        aux2 = ponteiroAuxiliar;
+        ponteiroAuxiliar = ponteiroAuxiliar->proximo;
+        cont++;
+    }
+    aux2->proximo = ponteiroAuxiliar->proximo;
+    free(ponteiroAuxiliar);
+}
+
+void busca_encadeada(Pessoa **ponteiroEncadeado, int rg){
+    Pessoa *ponteiroAux;
+    int cont = 0;
+
+    ponteiroAux = *ponteiroEncadeado;
+    while (ponteiroAux != NULL)
+    {
+        if (ponteiroAux->rg == rg)
+        {
+            printf("Pessoa encontrada na posicao %d\n", cont);
+            printf("Nome: %s\n", ponteiroAux->nome);
+            printf("RG: %d\n", ponteiroAux->rg);
+            return;
+        }
+        cont++;
+        ponteiroAux = ponteiroAux->proximo;
+    }
+    printf("Pessoa nao encontrada!\n");
 }
