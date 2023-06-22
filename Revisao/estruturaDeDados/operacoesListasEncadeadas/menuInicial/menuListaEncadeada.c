@@ -19,6 +19,8 @@ void inserir_inicio(Pessoa **ponteiroEncadeado, char *nome, int rg);
 void inserir_final(Pessoa **ponteiroEncadeado, char *nome, int rg);
 void inserir_na_posicao(Pessoa **ponteiroEncadeado, char *nome, int rg, int posicao);
 void remover_inicio(Pessoa **ponteiroEncadeado);
+void remover_final(Pessoa **ponteiroEncadeado);
+void remover_na_posicao(Pessoa **ponteiroEncadeado, int posicao);
 
 int main()
 {
@@ -34,9 +36,8 @@ int main()
     ponteiroEncadeado->rg = 0;
     ponteiroEncadeado->proximo = NULL;
 
-    
     // Cria o primeiro valor
-    Pessoa *novoPrimeiroValor = (Pessoa *) malloc(sizeof(Pessoa));
+    Pessoa *novoPrimeiroValor = (Pessoa *)malloc(sizeof(Pessoa));
     // Atribui valores ao primeiro valor
     novoPrimeiroValor->rg = 123456;
     strcpy(novoPrimeiroValor->nome, "Carolina");
@@ -46,7 +47,7 @@ int main()
     ponteiroEncadeado = novoPrimeiroValor;
 
     // Cria o segundo valor
-    Pessoa *novoSegundoValor = (Pessoa *) malloc(sizeof(Pessoa));
+    Pessoa *novoSegundoValor = (Pessoa *)malloc(sizeof(Pessoa));
     // Atribui valores ao segundo valor
     novoSegundoValor->rg = 654321;
     strcpy(novoSegundoValor->nome, "Joao");
@@ -55,15 +56,13 @@ int main()
     novoPrimeiroValor->proximo = novoSegundoValor;
 
     // Cria o terceiro valor
-    Pessoa *novoTerceiroValor = (Pessoa *) malloc(sizeof(Pessoa));
+    Pessoa *novoTerceiroValor = (Pessoa *)malloc(sizeof(Pessoa));
     // Atribui valores ao terceiro valor
     novoTerceiroValor->rg = 789456;
     strcpy(novoTerceiroValor->nome, "Maria");
     novoTerceiroValor->proximo = NULL;
 
     novoSegundoValor->proximo = novoTerceiroValor;
-
-    
 
     while (funcaoDesejada != 9)
     {
@@ -90,7 +89,7 @@ int main()
             inserir_inicio(&ponteiroEncadeado, nome, rg);
 
             break;
-        
+
         case 2:
             printf("Inserindo no fim da lista...\n");
             hr();
@@ -109,9 +108,9 @@ int main()
             {
                 inserir_final(&ponteiroEncadeado, nome, rg);
             }
-            
+
             break;
-        
+
         case 3:
             printf("Inserindo na posicao N da lista...\n");
             hr();
@@ -125,7 +124,7 @@ int main()
             printf("Digite a posicao N: \n");
             fgets(tempInput, 50, stdin);
             int posicao = atoi(tempInput);
-            
+
             if (posicao == 0)
             {
                 inserir_inicio(&ponteiroEncadeado, nome, rg);
@@ -140,7 +139,7 @@ int main()
             }
 
             break;
-        
+
         case 4:
             printf("Removendo do inicio da lista...\n");
             hr();
@@ -149,13 +148,30 @@ int main()
                 printf("A lista nao possui elementos! \n");
                 hr();
             }
-            
+
             else
             {
                 remover_inicio(&ponteiroEncadeado);
             }
-            
-            
+            break;
+
+        case 5:
+            printf("Removendo do fim da lista...\n");
+            hr();
+            if (tamanhoLista(ponteiroEncadeado) == 0)
+            {
+                printf("A lista nao possui elementos! \n");
+                hr();
+            }
+            else if (tamanhoLista(ponteiroEncadeado) == 1)
+            {
+                remover_inicio(&ponteiroEncadeado);
+            }
+            else
+            {
+                remover_final(&ponteiroEncadeado);
+            }
+
             break;
 
         case 8:
@@ -177,6 +193,7 @@ int main()
             break;
 
         default:
+            printf("Opcao invalida! \n");
             break;
         }
     }
@@ -255,13 +272,12 @@ void imprime_encadeada(Pessoa *ponteiroEncadeado)
 
 void inserir_inicio(Pessoa **ponteiroEncadeado, char *nome, int rg)
 {
-    
-    
+
     Pessoa *novaPessoa = (Pessoa *)malloc(sizeof(Pessoa));
     // Atribui valores ao primeiro valor
     strcpy(novaPessoa->nome, nome);
     novaPessoa->rg = rg;
-    
+
     // Se a lista estiver vazia, o proximo valor eh nulo
     if ((*ponteiroEncadeado)->nome[0] == '\0')
     {
@@ -271,7 +287,6 @@ void inserir_inicio(Pessoa **ponteiroEncadeado, char *nome, int rg)
     {
         novaPessoa->proximo = *ponteiroEncadeado;
     }
-    
 
     // Transforma o ponteiro do inicio da lista no novo valor
     *ponteiroEncadeado = novaPessoa;
@@ -279,10 +294,10 @@ void inserir_inicio(Pessoa **ponteiroEncadeado, char *nome, int rg)
     printf("Pessoa inserida com sucesso!\n");
 }
 
-void inserir_final(Pessoa** ponteiroEncadeado, char *nome, int rg)
+void inserir_final(Pessoa **ponteiroEncadeado, char *nome, int rg)
 {
-    
-    Pessoa *tempPessoa = (Pessoa*) malloc(sizeof(Pessoa));
+
+    Pessoa *tempPessoa = (Pessoa *)malloc(sizeof(Pessoa));
 
     // Atribui valores ao valor temporario
     strcpy(tempPessoa->nome, nome);
@@ -300,17 +315,17 @@ void inserir_final(Pessoa** ponteiroEncadeado, char *nome, int rg)
     ponteiroAuxiliar->proximo = tempPessoa;
 }
 
-void inserir_na_posicao(Pessoa **ponteiroEncadeado, char *nome, int rg, int posicao){
+void inserir_na_posicao(Pessoa **ponteiroEncadeado, char *nome, int rg, int posicao)
+{
 
     if (tamanhoLista(*ponteiroEncadeado) < posicao)
     {
         printf("Posicao invalida! \n");
         return;
     }
-    
 
-    Pessoa * ponteiroAuxiliar = (Pessoa *) malloc(sizeof(Pessoa));
-    Pessoa * tempPessoa = (Pessoa *) malloc(sizeof(Pessoa));
+    Pessoa *ponteiroAuxiliar = (Pessoa *)malloc(sizeof(Pessoa));
+    Pessoa *tempPessoa = (Pessoa *)malloc(sizeof(Pessoa));
     int cont = 0;
 
     // Atribui valores ao valor temporario
@@ -336,17 +351,37 @@ void inserir_na_posicao(Pessoa **ponteiroEncadeado, char *nome, int rg, int posi
 void remover_inicio(Pessoa **ponteiroEncadeado)
 {
     if ((*ponteiroEncadeado)->proximo == NULL)
-            {
-                (*ponteiroEncadeado)->nome[0] = '\0';
-                (*ponteiroEncadeado)->rg = 0;
-                (*ponteiroEncadeado)->proximo = NULL;
-                return;
-            }
-    
+    {
+        (*ponteiroEncadeado)->nome[0] = '\0';
+        (*ponteiroEncadeado)->rg = 0;
+        (*ponteiroEncadeado)->proximo = NULL;
+        return;
+    }
+
     // Cria um ponteiro auxiliar para percorrer a lista
     Pessoa *ponteiroAuxiliar = *ponteiroEncadeado;
     // Ajusta o ponteiro do inicio da lista para o proximo valor
     *ponteiroEncadeado = ponteiroAuxiliar->proximo;
     // Libera o valor removido
     free(ponteiroAuxiliar);
+}
+
+void remover_final(Pessoa **ponteiroEncadeado)
+{
+    Pessoa *ponteiroAux;
+    int cont;
+
+    ponteiroAux = *ponteiroEncadeado;
+
+    // Percorre a lista ate o penultimo elemento 
+    while (cont < tamanhoLista(*ponteiroEncadeado) - 2)
+    {
+        ponteiroAux = ponteiroAux->proximo;
+        cont++;
+    }
+
+    // Muda o final da lista para o penultimo elemento
+    ponteiroAux->proximo = NULL;
+
+    printf("Pessoa removida com sucesso!\n");
 }
